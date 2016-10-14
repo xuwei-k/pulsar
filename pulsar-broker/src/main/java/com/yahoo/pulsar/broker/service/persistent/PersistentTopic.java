@@ -17,7 +17,8 @@ package com.yahoo.pulsar.broker.service.persistent;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -118,7 +119,7 @@ public class PersistentTopic implements Topic, AddEntryCallback {
 
     private static final double MESSAGE_EXPIRY_THRESHOLD = 1.5;
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     // Timestamp of when this topic was last seen active
     private volatile long lastActive;

@@ -20,7 +20,8 @@ import static com.yahoo.pulsar.checksum.utils.Crc32cChecksum.computeChecksum;
 import static com.yahoo.pulsar.checksum.utils.Crc32cChecksum.resumeChecksum;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -693,7 +694,7 @@ public class ProducerImpl extends ProducerBase implements TimerTask {
 
                         log.info("[{}] [{}] Created producer on cnx {}", topic, producerName, cnx.ctx().channel());
                         connectionId = cnx.ctx().channel().toString();
-                        connectedSince = DATE_FORMAT.format(new Date(System.currentTimeMillis()));
+                        connectedSince = DATE_FORMAT.format(LocalDateTime.now());
 
                         if (this.producerName == null) {
                             this.producerName = producerName;
@@ -1091,7 +1092,7 @@ public class ProducerImpl extends ProducerBase implements TimerTask {
         return pendingMessages.size();
     }
 
-    private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    private static DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     private PulsarApi.CompressionType convertCompressionType(CompressionType compressionType) {
         switch (compressionType) {
